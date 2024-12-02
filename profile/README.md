@@ -1,3 +1,7 @@
+Here's the README with added `cURL` examples for each HTTP call explanation.
+
+---
+
 # Evermind - Distributed Lock as a Service
 
 [![Evermind](https://img.shields.io/badge/Evermind-Lock%20as%20a%20Service-blue)](https://evermind.sh)
@@ -20,7 +24,7 @@ Evermind eliminates the complexities of building and managing distributed lockin
 - Seamless lock extensions.
 - A serverless-ready architecture that integrates easily into any environment.
 
-Subscribe to a plan via our storefront: [Polar.sh Evermind](https://polar.sh/evermind/).
+Subscribe to a plan via our storefront: [Polar.sh](https://polar.sh/evermind/).
 
 ---
 
@@ -34,7 +38,7 @@ To interact with Evermind's lock API, you first need to exchange your Polar.sh l
 
 Licence Keys are automatically managed by Polar and will expire and have their usage allocations tracked within the Polar system, but you manage your own API Keys.
 
-There is a `1:M` relationship between Licence Keys and API Keys, all API Keys created for a Licence Key will contribute to that Licence Keys usage allocation.
+There is a 1:M relationship between Licence Keys and API Keys, all API Keys created for a Licence Key will contribute to that Licence Keys usage allocation.
 
 ### 3.1 Using the CLI
 
@@ -44,7 +48,7 @@ Install the CLI globally:
 npm install -g evermind
 ```
 
-Or, run the command using `npx`, `bunx`, etc
+Or, run the command using `npx`, `bunx`, etc.
 
 **Create an API key:**
 
@@ -95,6 +99,18 @@ npx evermind keys delete YOUR_API_KEY
   }
   ```
 
+**cURL Example:**
+
+```bash
+curl -X POST https://api.evermind.sh/api-key \
+-H "Content-Type: application/json" \
+-d '{
+  "licenceKey": "YOUR_POLAR_SH_LICENCE_KEY"
+}'
+```
+
+---
+
 #### Delete API Key
 
 - **Endpoint:** `https://api.evermind.sh/api-key`
@@ -109,6 +125,17 @@ npx evermind keys delete YOUR_API_KEY
 - **Response:**
   204 No Content (if successful)
 
+**cURL Example:**
+
+```bash
+curl -X DELETE https://api.evermind.sh/api-key \
+-H "Content-Type: application/json" \
+-d '{
+  "licenceKey": "YOUR_POLAR_SH_LICENCE_KEY",
+  "apiKey": "YOUR_API_KEY"
+}'
+```
+
 ---
 
 ## 4. Using Evermind
@@ -119,8 +146,21 @@ Once you have an API key, you can interact with the lock service to acquire, ext
 
 Install the SDK:
 
+npm
 ```bash
-npm install evermind
+npm install @evermind/sdk
+```
+bun
+```bash
+bun install @evermind/sdk
+```
+yarn
+```bash
+yarn add @evermind/sdk
+```
+pnpm
+```bash
+pnpm install @evermind/sdk
 ```
 
 **Example Usage:**
@@ -157,8 +197,6 @@ const result = await evermind.withLock({ key }, async () => {
 
 ### 4.2 HTTP API Examples
 
-If preferred (or are not using TypeScript/Node.js) then you can call each of the endpoints directly using any HTTP client.
-
 #### Acquire Lock
 
 - **Endpoint:** `https://lock.evermind.sh/lock/acquire`
@@ -190,6 +228,24 @@ If preferred (or are not using TypeScript/Node.js) then you can call each of the
   }
   ```
 
+**cURL Example:**
+
+```bash
+curl -X POST https://lock.evermind.sh/lock/acquire \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer YOUR_API_KEY" \
+-d '{
+  "key": "resource_key",
+  "lease": 5000,
+  "retryAttempts": 5,
+  "retryDelay": 500,
+  "uuid": "custom-uuid",
+  "softFail": false
+}'
+```
+
+---
+
 #### Extend Lock
 
 - **Endpoint:** `https://lock.evermind.sh/lock/extend`
@@ -211,6 +267,22 @@ If preferred (or are not using TypeScript/Node.js) then you can call each of the
   }
   ```
 
+**cURL Example:**
+
+```bash
+curl -X POST https://lock.evermind.sh/lock/extend \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer YOUR_API_KEY" \
+-d '{
+  "key": "resource_key",
+  "uuid": "custom-uuid",
+  "extendBy": 3000,
+  "softFail": true
+}'
+```
+
+---
+
 #### Release Lock
 
 - **Endpoint:** `https://lock.evermind.sh/lock/release`
@@ -230,6 +302,19 @@ If preferred (or are not using TypeScript/Node.js) then you can call each of the
     "message": null
   }
   ```
+
+**cURL Example:**
+
+```bash
+curl -X POST https://lock.evermind.sh/lock/release \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer YOUR_API_KEY" \
+-d '{
+  "key": "resource_key",
+  "uuid": "custom-uuid",
+  "softFail": true
+}'
+```
 
 ---
 
