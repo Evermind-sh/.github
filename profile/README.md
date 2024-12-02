@@ -1,7 +1,9 @@
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: space-around; margin-top: 1em">
+<p align="center">
 	<img src="https://avatars.githubusercontent.com/u/184973784" alt="Evermind Logo" style="width: 100px;vertical-align: middle;">
-	<h1 style="margin-top: 0;">Evermind - Distributed Lock as a Service</h1>
-</div>
+</p>
+<p align="center">
+	<h1>Evermind - Distributed Lock as a Service</h1>
+</p>
 
 [![Evermind](https://img.shields.io/badge/Evermind-Lock%20as%20a%20Service-blue)](https://evermind.sh)
 [![Polar.sh](https://img.shields.io/badge/Polar.sh-Purchase-orange)](https://polar.sh/evermind/)
