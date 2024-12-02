@@ -1,8 +1,7 @@
 # Evermind - Distributed Lock as a Service
 
-![Evermind](https://img.shields.io/badge/Evermind-Lock%20as%20a%20Service-blue)
-![Polar.sh](https://img.shields.io/badge/Polar.sh-Subscribe-orange)
-![API Documentation](https://img.shields.io/badge/API-Documentation-green)
+[![Evermind](https://img.shields.io/badge/Evermind-Lock%20as%20a%20Service-blue)](https://evermind.sh)
+[![Polar.sh](https://img.shields.io/badge/Polar.sh-Purchase-orange)](https://polar.sh/evermind/)
 
 ---
 
@@ -37,13 +36,15 @@ Install the CLI globally:
 npm install -g evermind
 ```
 
+Or, run the command using `npx`, `bunx`, etc
+
 **Create an API key:**
 
 ```bash
-npx evermind keys create --licenceKey YOUR_POLAR_SH_LICENCE_KEY
+npx evermind keys create --licenceKey <licence-key>
 ```
 
-Or use an environment variable:
+Or let the Evermind CLI read the licence key from the `EVERMIND_LICENCE_KEY` environment variable:
 
 ```bash
 export EVERMIND_LICENCE_KEY=YOUR_POLAR_SH_LICENCE_KEY
@@ -119,33 +120,27 @@ import { Evermind } from 'evermind';
 
 const evermind = new Evermind({ apiKey: 'YOUR_API_KEY' });
 
-async function run() {
-    const key = 'my_resource';
+const key = 'my_resource';
 
-    // Acquire a lock
-    const acquireResponse = await evermind.acquire({ key, lease: 5000 });
-    console.log('Acquire:', acquireResponse);
+// Acquire a lock directly
+const acquireResponse = await evermind.acquire({ key, lease: 5000 });
+console.log('Acquire:', acquireResponse);
 
-    // Extend a lock
-    if (acquireResponse.acquired) {
-        const extendResponse = await evermind.extend({ key, uuid: acquireResponse.config.uuid, extendBy: 2000 });
-        console.log('Extend:', extendResponse);
+// Extend a lock that has been acquired
+if (acquireResponse.acquired) {
+	const extendResponse = await evermind.extend({ key, uuid: acquireResponse.config.uuid, extendBy: 2000 });
+	console.log('Extend:', extendResponse);
 
-        // Release the lock
-        const releaseResponse = await evermind.release({ key, uuid: acquireResponse.config.uuid, softFail: true });
-        console.log('Release:', releaseResponse);
-    }
-
-    // Using `withLock` to simplify lock management
-    const result = await evermind.withLock({ key }, async () => {
-        // Do some work while holding the lock
-        return 'some result';
-    });
-
-    console.log("Work complete:", result);
+	// Release the lock
+	const releaseResponse = await evermind.release({ key, uuid: acquireResponse.config.uuid, softFail: true });
+	console.log('Release:', releaseResponse);
 }
 
-run();
+// Using `withLock` to simplify lock management, will automatically release the lock once the routine is finished.
+const result = await evermind.withLock({ key }, async () => {
+	// Do some work while holding the lock
+	return 'some result';
+});
 ```
 
 ---
@@ -228,9 +223,15 @@ If preferred (or are not using TypeScript/Node.js) then you can call each of the
 
 ---
 
-## 5. DTOs
+Here’s the expanded **DTOs** section with endpoint details, Evermind SDK method names, descriptions, caveats, and additional explanations.
 
-### Lock API DTOs
+---
+
+## 5. Lock API
+
+### Lock Operations
+
+The Lock API is used for acquiring, extending, and releasing locks. Below are the DTOs for each operation, along with their corresponding HTTP endpoints and Evermind SDK method names.
 
 #### Acquire Lock
 
@@ -243,6 +244,18 @@ If preferred (or are not using TypeScript/Node.js) then you can call each of the
 | `uuid`          | `string`    | No           | Optional custom UUID for the lock.                     |
 | `softFail`      | `boolean`   | No           | Return errors inline (`200`) instead of exceptions.     |
 
+- **Endpoint:** `POST https://lock.evermind.sh/lock/acquire`
+- **SDK Method:** `evermind.acquire(options: AcquireOptions)`
+
+**Description:**
+Acquires a lock on a given resource (`key`). By default, if the lock cannot be acquired immediately, the system will retry the specified number of times (`retryAttempts`) with the provided delay (`retryDelay`).
+
+**Caveats:**
+- Locks are tied to a unique `uuid`. If a custom UUID is not provided, the system generates one.
+- Using `softFail: true` ensures errors are returned inline instead of throwing exceptions. This can simplify error handling in some scenarios.
+
+---
+
 #### Extend Lock
 
 | **Field**       | **Type**    | **Required** | **Description**                                         |
@@ -252,6 +265,18 @@ If preferred (or are not using TypeScript/Node.js) then you can call each of the
 | `extendBy`      | `number`    | Yes          | Milliseconds to extend the lock.                       |
 | `softFail`      | `boolean`   | No           | Return errors inline (`200`) instead of exceptions.     |
 
+- **Endpoint:** `POST https://lock.evermind.sh/lock/extend`
+- **SDK Method:** `evermind.extend(options: ExtendOptions)`
+
+**Description:**
+Extends the duration of an existing lock. The `uuid` must match the UUID of the currently held lock, and the `extendBy` value specifies how much additional time (in milliseconds) to add to the lock duration.
+
+**Caveats:**
+- Attempting to extend a non-existent or expired lock will fail unless `softFail` is set to `true`.
+- The extension is relative to the current lock's expiration time and not to the time of the request.
+
+---
+
 #### Release Lock
 
 | **Field**       | **Type**    | **Required** | **Description**                                         |
@@ -259,6 +284,34 @@ If preferred (or are not using TypeScript/Node.js) then you can call each of the
 | `key`           | `string`    | Yes          | The resource key to release the lock on.               |
 | `uuid`          | `string`    | Yes          | UUID of the lock instance to release.                  |
 | `softFail`      | `boolean`   | No           | Return errors inline (`200`) instead of exceptions.     |
+
+- **Endpoint:** `POST https://lock.evermind.sh/lock/release`
+- **SDK Method:** `evermind.release(options: ReleaseOptions)`
+
+**Description:**
+Releases a lock on a resource. The `uuid` must match the UUID used to acquire the lock. If the lock is already released or does not exist, the response will indicate this unless `softFail` is set to `true`.
+
+**Caveats:**
+- Ensure that the `uuid` provided matches the one used during acquisition; otherwise, the release will fail.
+- Using `softFail: true` can help avoid exceptions when the lock does not exist or has already been released.
+
+---
+
+### Summary of SDK Methods and HTTP Endpoints
+
+| **Operation** | **HTTP Endpoint**                        | **SDK Method**              | **Description**                                                              |
+|---------------|------------------------------------------|-----------------------------|------------------------------------------------------------------------------|
+| Acquire Lock  | `POST /lock/acquire`                     | `evermind.acquire`          | Attempts to acquire a lock on the given resource.                           |
+| Extend Lock   | `POST /lock/extend`                      | `evermind.extend`           | Extends the duration of a held lock.                                        |
+| Release Lock  | `POST /lock/release`                     | `evermind.release`          | Releases the lock on the specified resource.                                |
+
+---
+
+### Additional Notes
+
+- **Error Handling:** By default, errors are returned as HTTP status codes. Setting `softFail: true` in any request results in errors being returned inline within a `200 OK` response.
+- **UUID Management:** For optimal operation, UUIDs uniquely identify a lock acquisition. If you generate UUIDs manually, ensure they are truly unique to prevent collisions.
+- **Retry Logic:** Retry attempts and delays are configurable for acquisitions. This is particularly useful in scenarios with high contention for a resource.
 
 ---
 
