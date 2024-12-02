@@ -1,8 +1,15 @@
-Here's the README with added `cURL` examples for each HTTP call explanation.
-
----
-
-# Evermind - Distributed Lock as a Service
+<style>
+ .h1-like {
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.2;
+    display: inline-block;
+  }
+</style>
+<div style="display: flex; flex-direction: row; align-items: center; margin-top: 1em">
+  <img src="https://avatars.githubusercontent.com/u/184973784" alt="Evermind Logo" style="width: 40px; height: 40px; vertical-align: middle;">
+  <span class="h1-like" style="margin-left: 0.5em;">Evermind - Distributed Lock as a Service</span>
+</div>
 
 [![Evermind](https://img.shields.io/badge/Evermind-Lock%20as%20a%20Service-blue)](https://evermind.sh)
 [![Polar.sh](https://img.shields.io/badge/Polar.sh-Purchase-orange)](https://polar.sh/evermind/)
