@@ -6,8 +6,6 @@
 [![Evermind](https://img.shields.io/badge/Evermind-Lock%20as%20a%20Service-blue)](https://evermind.sh)
 [![Polar.sh](https://img.shields.io/badge/Polar.sh-Purchase-orange)](https://polar.sh/evermind/)
 
----
-
 ## 1. About Evermind.sh
 
 [Evermind](https://evermind.sh) is a simple, reliable, and scalable Distributed Lock as a Service (DLaaS), also referred to as a mutex. It empowers developers to maintain consistency across distributed systems effortlessly by offering tools to acquire, extend, and release locks on shared resources. Evermind simplifies complex coordination challenges, enabling robust, fault-tolerant applications.
