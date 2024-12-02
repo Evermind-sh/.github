@@ -5,13 +5,13 @@
 
 ---
 
-## 1. About Evermind
+## 1. About Evermind.sh
 
 [Evermind](https://evermind.sh) is a simple, reliable, and scalable Distributed Lock as a Service (DLaaS), also referred to as a mutex. It empowers developers to maintain consistency across distributed systems effortlessly by offering tools to acquire, extend, and release locks on shared resources. Evermind simplifies complex coordination challenges, enabling robust, fault-tolerant applications.
 
 ---
 
-## 2. About the Product
+## 2. About the Evermind Lock
 
 Evermind eliminates the complexities of building and managing distributed locking mechanisms. Our service provides:
 
@@ -26,7 +26,15 @@ Subscribe to a plan via our storefront: [Polar.sh Evermind](https://polar.sh/eve
 
 ## 3. Setup: Acquiring an API Key
 
-To interact with Evermind's lock API, you first need to exchange your Polar.sh license key for an API key. API keys are managed via the `https://api.evermind.sh` service.
+To interact with Evermind's lock API, you first need to exchange your Polar.sh license key for an API key. Licence Keys can be purchased from our [Polar.sh](https://polar.sh/evermind/) storefront.
+
+1. Visit the store: [Polar.sh](https://polar.sh/evermind/)
+2. Subscribe to a plan, each plan comes with 1x Licence Key as a Benefit that can be exchanged for 1 or more API Keys
+3. Go to your benefits for your subscription and use the Licence Key to create an API key (below)
+
+Licence Keys are automatically managed by Polar and will expire and have their usage allocations tracked within the Polar system, but you manage your own API Keys.
+
+There is a `1:M` relationship between Licence Keys and API Keys, all API Keys created for a Licence Key will contribute to that Licence Keys usage allocation.
 
 ### 3.1 Using the CLI
 
@@ -48,6 +56,7 @@ Or let the Evermind CLI read the licence key from the `EVERMIND_LICENCE_KEY` env
 
 ```bash
 export EVERMIND_LICENCE_KEY=YOUR_POLAR_SH_LICENCE_KEY
+
 npx evermind keys create
 ```
 
@@ -61,6 +70,7 @@ Or use an environment variable:
 
 ```bash
 export EVERMIND_LICENCE_KEY=YOUR_POLAR_SH_LICENCE_KEY
+
 npx evermind keys delete YOUR_API_KEY
 ```
 
