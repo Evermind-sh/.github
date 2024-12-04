@@ -8,9 +8,11 @@
 
 ## 1. About [Evermind.sh](https://evermind.sh)
 
-[Evermind](https://evermind.sh) is a simple, reliable, and scalable Distributed Lock-as-a-Service (LaaS).
+*Evermind*, translated from the Rohanese word *Simbelmynë*—the name of a small white flower symbolizing "everlasting memory"—is a simple, reliable, and scalable Distributed Lock-as-a-Service (LaaS).
 
-Locks (sometimes referred to as a Mutex or a Semaphore) empowers developers to maintain consistency across distributed systems effortlessly by offering tools to acquire, extend, and release locks on shared resources. Evermind simplifies complex coordination challenges, enabling robust, fault-tolerant applications that ensure atomic operations on resources across distributed systems.
+Locks (sometimes referred to as a Mutex or a Semaphore) empowers developers to maintain consistency across distributed systems effortlessly by offering tools to acquire, extend, and release locks on shared resources.
+
+Evermind simplifies complex coordination challenges, enabling robust, fault-tolerant applications that ensure atomic operations on resources across distributed systems.
 
 ---
 
