@@ -18,11 +18,12 @@ Locks (sometimes referred to as a Mutex or a Semaphore) empowers developers to m
 
 Evermind eliminates the complexities of building and managing distributed locking mechanisms. Our service provides:
 
-### Supports
-- 🔄 Configurable lock acquisitions with automatic retries.
-- ⏱️ Automatic expirations and releases.
-- ➕ Lock extensions.
-- ☁️ A serverless-ready (HTTP based) architecture that integrates easily into any environment.
+### Features
+- 🔄 **Configurable Lock Acquisitions:** Fine-tune lock behavior with options for lease duration, retries, and delay intervals.
+- ⏱️ **Automatic Expirations and Releases:** Prevent deadlocks and resource starvation.
+- ➕ **Lock Extensions:** Extend a lock without releasing it.
+- ☁️ **HTTP API & TypeScript SDK:** Flexible integrations with multiple environments that is serverless ready.
+- 🤝 **Soft Fail Option:** Handle errors gracefully with inline responses.
 
 ### Pricing
 
@@ -408,17 +409,7 @@ Releases a lock on a resource. The `uuid` must match the UUID used to acquire th
 
 ---
 
-## 6. Features
-
-- **Configurable Lock Acquisitions:** Fine-tune lock behavior with options for lease duration, retries, and delay intervals.
-- **Automatic Expirations and Releases:** Prevent deadlocks and resource starvation.
-- **Lock Extensions:** Extend a lock without releasing it.
-- **HTTP API & TypeScript SDK:** Flexible integrations with multiple environments.
-- **Soft Fail Option:** Handle errors gracefully with inline responses.
-
----
-
-## 7. Discussion & Alternatives
+## 6. Discussion & Alternatives
 
 Evermind offers a managed DLaaS solution. However, various alternatives exist for concurrency control. Here's a comparison to help you choose the right tool:
 
@@ -447,7 +438,7 @@ Evermind offers a managed DLaaS solution. However, various alternatives exist fo
 
 ---
 
-## 8. Regions and Deployment
+## 7. Regions and Deployment
 
 Evermind.sh is hosted on [Fly.io](https://fly.io) and has servers in the following regions:
 
@@ -461,7 +452,7 @@ You can choose to send your traffic to a specific region using [this](https://fl
 
 If you are looking for your own deployment on infrastructure isolated from the rest of the Evermind platform or are wanting to run all services (Lock API, Database and Cache) in the same region as the server, feel free to reach out to <a href="mailto:hello@evermind.sh">hello@evermind.sh</a>.
 
-## Related
+## 8. Related
 
 1. Evermind SDK - [@evermind-sh/sdk](https://www.npmjs.com/package/@evermind-sh/sdk)
 2. Evermind CLI - [evermind](https://www.npmjs.com/package/evermind)
