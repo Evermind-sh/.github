@@ -45,7 +45,11 @@ Lock Acquisition Attempts approximately measure usage in the system, although no
 
 Check our the pricing plans and subscribe via our [storefront](https://polar.sh/evermind/).
 
-Need unlimited LAAs? Reach out to <a href="mailto:hello@evermind.sh">hello@evermind.sh</a>!
+#### Pay as you go Pricing
+In the future Evermind will offer Pay as you go pricing, currently you must sign up for a subscription.
+
+#### Enterprise Pricing
+Need unlimited LAAs or a higher level of support/isolation? Reach out to <a href="mailto:hello@evermind.sh">hello@evermind.sh</a>!
 
 ---
 
