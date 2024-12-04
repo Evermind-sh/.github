@@ -25,6 +25,10 @@ Evermind eliminates the complexities of building and managing distributed lockin
 - ☁️ **HTTP API & TypeScript SDK:** Flexible integrations with multiple environments that is serverless ready.
 - 🤝 **Soft Fail Option:** Handle errors gracefully with inline responses.
 
+### Future Features
+- 📜 **FIFO Locks:** First In, First Out locks, allowing you to ensure that acquisition order is honoured.
+- 🛠️ **Lock Acquisition Optimization:** Tools to help you optimize your lock durations and retry delays to reduce Lock Acquisition Attempts (See [Pricing](#pricing) below)
+
 ### Pricing
 
 Evermind is billed based on how much usage (i.e. how many locks you will be acquiring), based on Lock Acquisition Attempts (LAAs).
