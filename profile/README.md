@@ -6,20 +6,23 @@
 [![Evermind](https://img.shields.io/badge/Evermind-Lock%20as%20a%20Service-blue)](https://evermind.sh)
 [![Polar.sh](https://img.shields.io/badge/Polar.sh-Purchase-orange)](https://polar.sh/evermind/)
 
-## 1. About Evermind.sh
+## 1. About [Evermind.sh](https://evermind.sh)
 
-[Evermind](https://evermind.sh) is a simple, reliable, and scalable Distributed Lock as a Service (DLaaS), also referred to as a mutex. It empowers developers to maintain consistency across distributed systems effortlessly by offering tools to acquire, extend, and release locks on shared resources. Evermind simplifies complex coordination challenges, enabling robust, fault-tolerant applications.
+[Evermind](https://evermind.sh) is a simple, reliable, and scalable Distributed Lock-as-a-Service (LaaS).
+
+Locks (sometimes referred to as a Mutex or a Semaphore) empowers developers to maintain consistency across distributed systems effortlessly by offering tools to acquire, extend, and release locks on shared resources. Evermind simplifies complex coordination challenges, enabling robust, fault-tolerant applications that ensure atomic operations on resources across distributed systems.
 
 ---
 
-## 2. About the Evermind Lock
+## 2. Evermind Lock
 
 Evermind eliminates the complexities of building and managing distributed locking mechanisms. Our service provides:
 
-- Configurable lock acquisitions with automatic retries.
-- Automatic expirations and releases.
-- Seamless lock extensions.
-- A serverless-ready architecture that integrates easily into any environment.
+### Supports
+- 🔄 Configurable lock acquisitions with automatic retries.
+- ⏱️ Automatic expirations and releases.
+- ➕ Lock extensions.
+- ☁️ A serverless-ready (HTTP based) architecture that integrates easily into any environment.
 
 Subscribe to a plan via our storefront: [Polar.sh](https://polar.sh/evermind/).
 
@@ -146,18 +149,6 @@ Install the SDK:
 npm
 ```bash
 npm install @evermind/sdk
-```
-bun
-```bash
-bun install @evermind/sdk
-```
-yarn
-```bash
-yarn add @evermind/sdk
-```
-pnpm
-```bash
-pnpm install @evermind/sdk
 ```
 
 **Example Usage:**
@@ -402,7 +393,7 @@ Releases a lock on a resource. The `uuid` must match the UUID used to acquire th
 ### Additional Notes
 
 - **Error Handling:** By default, errors are returned as HTTP status codes. Setting `softFail: true` in any request results in errors being returned inline within a `200 OK` response.
-- **UUID Management:** For optimal operation, UUIDs uniquely identify a lock acquisition. If you generate UUIDs manually, ensure they are truly unique to prevent collisions.
+- **UUID Management:** For optimal operation, UUIDs are used as a lock value to uniquely identify a lock acquisition. If you generate lock values manually, ensure they are truly unique to prevent collisions.
 - **Retry Logic:** Retry attempts and delays are configurable for acquisitions. This is particularly useful in scenarios with high contention for a resource.
 
 ---
@@ -445,3 +436,17 @@ Evermind offers a managed DLaaS solution. However, various alternatives exist fo
 - Extremely low-latency scenarios that require finely-tuned, in-house solutions.
 
 ---
+
+## 8. Regions and Deployment
+
+Evermind.sh is hosted on [Fly.io](https://fly.io) and has servers in the following regions:
+
+1. `yyz` - Toronto, Canada
+2. `yul` - Montreal, Canada
+3. `sea` - Seattle, Washington (US)
+
+If you are wanting to use Evermind in a region closer to where your servers are going to be, feel free to open a pull request here with your new region request. You can find the available regions [here](https://fly.io/docs/reference/regions/).
+
+You can choose to send your traffic to a specific region using [this](https://fly.io/docs/networking/dynamic-request-routing/#the-fly-prefer-region-request-header) method. Only the regions above are supported.
+
+If you are looking for your own deployment on infrastructure isolated from the rest of the Evermind platform or are wanting to run all services (Lock API, Database and Cache) in the same region as the server, feel free to reach out to <a href="mailto:hello@evermind.sh">hello@evermind.sh</a>.
