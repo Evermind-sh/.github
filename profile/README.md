@@ -24,7 +24,17 @@ Evermind eliminates the complexities of building and managing distributed lockin
 - ➕ Lock extensions.
 - ☁️ A serverless-ready (HTTP based) architecture that integrates easily into any environment.
 
-Subscribe to a plan via our storefront: [Polar.sh](https://polar.sh/evermind/).
+### Pricing
+
+Evermind is billed based on how much usage (i.e. how many locks you will be acquiring), based on Lock Acquisition Attempts (LAAs).
+
+A Lock Acquisition Attempt (LAA) is where a call to the Evermind Lock API attempts to acquire a lock on a resource, if that resource can be acquired on the first attempt and then a subsequent call to the Evermind API releases it, that is 1 LAA.
+
+If that resource is unable to be acquired on the first attempt and must retry `N` times then the total number of LAAs used would be `M`, where `M` is `1 + the number of retires`.
+
+Lock Acquisition Attempts approximately measure usage in the system, although notably Lock Releases and Lock extensions are not billed and do not count towards your Licence Key usage.
+
+Check our the pricing plans and subscribe via our [storefront](https://polar.sh/evermind/).
 
 ---
 
@@ -450,3 +460,8 @@ If you are wanting to use Evermind in a region closer to where your servers are 
 You can choose to send your traffic to a specific region using [this](https://fly.io/docs/networking/dynamic-request-routing/#the-fly-prefer-region-request-header) method. Only the regions above are supported.
 
 If you are looking for your own deployment on infrastructure isolated from the rest of the Evermind platform or are wanting to run all services (Lock API, Database and Cache) in the same region as the server, feel free to reach out to <a href="mailto:hello@evermind.sh">hello@evermind.sh</a>.
+
+## Related
+
+1. Evermind SDK - [@evermind-sh/sdk](https://www.npmjs.com/package/@evermind-sh/sdk)
+2. Evermind CLI - [evermind](https://www.npmjs.com/package/evermind)
